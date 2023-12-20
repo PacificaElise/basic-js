@@ -12,19 +12,21 @@ const { NotImplementedError } = require('../extensions/index.js');
  *
  */
 function deleteDigit(n) {
-  const digits = n
-    .toString()
-    .split('')
-    .map((digit) => Number(digit));
+  const digits = n.toString().split('');
 
-  const min = Math.min.apply(null, digits);
-  const index = digits.indexOf(min);
-  const max = [
-    ...digits.slice(0, index),
-    ...digits.slice(index + 1, digits.length),
-  ];
+  let max = 0;
 
-  return +max.join('');
+  for (let i = 0; i < digits.length; i++) {
+    const copyDigits = [...digits];
+    copyDigits.splice(i, 1);
+    const num = Number(copyDigits.join(''));
+
+    if (num > max) {
+      max = num;
+    }
+  }
+
+  return max;
 }
 
 module.exports = {
